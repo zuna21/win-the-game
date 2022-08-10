@@ -1,0 +1,105 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg custom-nav">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'history' %}">History</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Free games
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'game' game_low.id %}">Low risk</a></li>
+                <li><a class="dropdown-item" href="{% url 'game' game_medium.id %}">Medium risk</a></li>
+                <li><a class="dropdown-item" href="{% url 'game' game_high.id %}">High risk</a></li>
+              </ul>
+            </li>
+            {% if request.user.profile.is_premium == 'OP' or request.user.profile.is_premium == 'PP' %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'premium' %}">⭐ Premium</a>
+            </li>
+            {% endif %}
+
+          </ul>
+
+        </div>
+        <form class="d-flex" role="search">
+          <a href="{% url 'contact' %}" class="btn btn-primary">Contact</a>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}" style="margin-left: 0.5rem; margin-right: 0.5rem;" class="btn btn btn-danger">Log out</a>
+          {% else %}
+          <a href="{% url 'login' %}" style="margin-left: 0.5rem; margin-right: 0.5rem;" class="btn btn btn-primary">Log in</a>
+          {% endif %}
+        </form>
+      </div>
+  </nav>
+
+
+    <div class="container welcome-cont">
+        <p">Welcome to the site. This is a site that specializes in the analysis of football games mainly.
+            Here you can find betting tips from the best people in the field. 
+            Every day a number of free tips will appear for people who are registered on the site. 
+            People who sign up for the premium group will get the best tips from us. 
+            So let's empty the money of the betting sites together, hurry up to register. </p>
+        {% if request.user.is_authenticated %} 
+        <p>You already have account, well done :)</p>
+        {% else %}
+        <a href="{% url 'register' %}" style="margin-left: 0.5rem; margin-right: 0.5rem;" class="btn btn btn-primary">REGISTER</a>
+        {% endif %}
+    </div>
+
+        <!-- premium meni -->
+<div class="container menu">
+
+  <a href="{% url 'contact' %}">
+      <div class="menu-content">
+          <h4>daily (3 matches) $5</h4>
+      </div>
+  </a>
+
+  <a href="{% url 'contact' %}">
+      <div class="menu-content">
+          <h4>⭐ daily+ (5 matches) $6</h4>
+      </div>
+  </a>
+
+  <a href="{% url 'contact' %}">
+      <div class="menu-content">
+          <h4>weekly (3 matches every day for a week) $30</h4>
+      </div>
+  </a>
+
+  <a href="{% url 'contact' %}">
+      <div class="menu-content">
+          <h4>⭐ weekly+ (5 matches every day for a week) $36</h4>
+      </div>
+  </a>
+
+  <a href="{% url 'contact' %}">
+      <div class="menu-content">
+          <h4>monthly (3 matches every day for a month) $100</h4>
+      </div>
+  </a>
+
+  <a href="{% url 'contact' %}">
+      <div class="menu-content">
+          <h4>⭐ monthly+ (5 matches every day for a month) $125</h4>
+      </div>
+  </a>
+
+</div>
+
+
+{% endblock content %}
